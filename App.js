@@ -1,36 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
-import HelloWorld from './components/HelloWorld';
+import axios from "axios";
+import {useEffect, useState} from 'react';
 
 function App() {
+  const [pokeData, setPokeData] = useState([]);
+    useEffect(() => {
+      axios
+      .get("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
+      .then((res) => {
+        console.log(res.data.results);
+        setPokeData(res.data.results);
+      })
+      .catch((err) => console.log(err));
+    },[]);
   return (
     <div className="App">
-      <HelloWorld 
-      firstName={"Jane"} 
-      lastName={"Doe"} age={21}
-      hairColor={"black"}/>
-
-
-      <HelloWorld 
-      firstName={"john"}
-      lastName={"Smith"}
-      age={"88"}
-      hairColor={"Brown"}/>
-
-      <HelloWorld 
-      firstName={"Millard"}
-      lastName={"Fillmore"}
-      age={"50"}
-      hairColor={"brown"}
-      />
-      <HelloWorld 
-      firstName={"Maria"}
-      lastName={"Smith"}
-      age={"62"}
-      hairColor={"Brown"}   />
+      <h1>My pokemon Homework</h1>
+      <ul>
+        {pokeData.map((pokemon, index) => (
+          <li key={index}>{pokemon.name}</li>
+        ))}
+      </ul>
+     
     </div>
   );
 }
-
 
 export default App;
