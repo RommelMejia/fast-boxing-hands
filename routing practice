@@ -1,0 +1,65 @@
+import logo from './logo.svg';
+import './App.css';
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import Home from './Components/Home';
+import Params from './Components/Params'
+
+function App() {
+  return (
+    <BrowserRouter>
+    <div className="App">
+      <Routes>
+        <Route element={<Home/>} path="/home"/>
+        <Route element ={<Params/>} path= "/:word" />
+        <Route element ={<Params/>} path= "/:word/:color/:bgColor" />
+      </Routes>
+     
+    </div>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+
+
+
+import React from 'react'
+import {useParams} from 'react-router-dom';
+const Params = () => {
+    const {word, color, bgColor} = useParams()
+  return (
+    <div>
+
+    {
+        isNaN(word)?
+        <p style={
+            color?
+            {color: color, backgroundColor: bgColor}
+            :null
+        }>
+            This is a word: (word)
+        </p>
+        :
+        <p>
+            This is a number (word)
+        </p>
+    }
+
+    </div>
+  )
+}
+
+export default Params
+
+
+
+
+import React from 'react'
+
+const Home = () => {
+  return (
+    <div>Welcome</div>
+  )
+}
+
+export default Home
